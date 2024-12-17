@@ -25,12 +25,10 @@ final class ArticleDetailViewController: UIViewController {
 
     private func setupWebView() {
         view.addSubview(webView)
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        
+        webView.pinTop(to: view.safeAreaLayoutGuide.topAnchor)
+        webView.pinLeft(to: view.leadingAnchor)
+        webView.pinRight(to: view.trailingAnchor)
+        webView.pinBottom(to: view.bottomAnchor)
     }
 }
