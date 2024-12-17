@@ -51,4 +51,22 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         guard let article = interactor?.articles[indexPath.row] else { return }
         router?.routeToArticleDetail(with: article)
     }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let shareAction = UIContextualAction(style: .normal, title: "Share") { [weak self] _, _, completion in
+            guard let self = self, let article = self.interactor?.articles[indexPath.row],
+                  let url = article.articleUrl else {
+                completion(true)
+                return
+            }
+            let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            self.present(activityVC, animated: true)
+            completion(true)
+        }
+        shareAction.backgroundColor = .systemBlue
+        return UISwipeActionsConfiguration(actions: [shareAction])
+    }
 }
