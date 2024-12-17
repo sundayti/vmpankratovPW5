@@ -25,12 +25,12 @@ class NewsCell: UITableViewCell {
     private let articleImageView = UIImageView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let shimmerLayer: ShimmerView = ShimmerView(frame: CGRect(x: 0, y: 0, width: 400, height: 200))
+    private let shimmerLayer: ShimmerView = ShimmerView(frame: CGRect(x: 0, y: 8, width: 600, height: 200))
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUI()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -50,7 +50,7 @@ class NewsCell: UITableViewCell {
     }
     
     // MARK: - Private Methods
-    private func setupUI() {
+    private func configureUI() {
         articleImageView.contentMode = .scaleAspectFill
         articleImageView.clipsToBounds = true
         
@@ -72,6 +72,7 @@ class NewsCell: UITableViewCell {
     }
     
     private func loadImage(from url: URL) {
+        shimmerLayer.isHidden = false
         if let cachedImage = ImageCache.shared.getImage(for: url as NSURL) {
             self.shimmerLayer.isHidden = true
             self.articleImageView.image = cachedImage
@@ -82,7 +83,6 @@ class NewsCell: UITableViewCell {
             guard let image = UIImage(data: data) else { return }
             
             ImageCache.shared.saveImage(image, for: url as NSURL)
-            
             DispatchQueue.main.async {
                 self?.shimmerLayer.isHidden = true
                 self?.articleImageView.image = image
