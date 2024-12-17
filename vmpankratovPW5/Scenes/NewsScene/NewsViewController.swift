@@ -7,7 +7,22 @@
 
 import UIKit
 
+// MARK: - NewsViewController
 final class NewsViewController: UIViewController, NewsDisplayLogic {
+    
+    // MARK: - Nested Types
+    private enum Constants {
+        static let initialRubricId = 4
+        static let initialPageIndex = 1
+        static let newsCellIdentifier = "NewsCell"
+        static let shareActionTitle = "Share"
+        static let navigationBarBackgroundColor = UIColor.white
+        static let refreshControlTintColor = UIColor.black
+        static let tableViewBackgroundColor = UIColor.white
+        static let shareActionBackgroundColor = UIColor.systemBlue
+    }
+    
+    // MARK: - Properties
     var interactor: (NewsBusinessLogic & NewsDataStore)?
     var router: (NewsRoutingLogic & NewsDataPassing)?
     
@@ -15,20 +30,35 @@ final class NewsViewController: UIViewController, NewsDisplayLogic {
     private var displayArticles: [DisplayArticle] = []
     private let refreshControl = UIRefreshControl()
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureRefreshControl()
         configureTableView()
+        configureNavigationBar()
         
-        navigationController?.navigationBar.backgroundColor = .white
-        interactor?.loadNews(News.Load.Request(rubricId: 4, pageIndex: 1))
+        interactor?.loadNews(News.Load.Request(
+            rubricId: Constants.initialRubricId,
+            pageIndex: Constants.initialPageIndex
+        ))
+    }
+    
+    // MARK: - Private Methods
+    private func configureNavigationBar() {
+        navigationController?.navigationBar.backgroundColor = Constants.navigationBarBackgroundColor
     }
     
     private func configureRefreshControl() {
-        refreshControl.tintColor = .green
+        refreshControl.tintColor = Constants.refreshControlTintColor
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        refreshControl.tintColor = .black
+    }
+    
+    @objc private func handleRefresh() {
+        interactor?.loadNews(News.Load.Request(
+            rubricId: Constants.initialRubricId,
+            pageIndex: Constants.initialPageIndex
+        ))
     }
     
     func displayNews(_ viewModel: News.Load.ViewModel) {
@@ -38,14 +68,11 @@ final class NewsViewController: UIViewController, NewsDisplayLogic {
             self.refreshControl.endRefreshing()
         }
     }
-    
-    
-    @objc private func handleRefresh() {
-        interactor?.loadNews(News.Load.Request(rubricId: 4, pageIndex: 1))
-    }
 }
 
+// MARK: - UITableViewDataSource & UITableViewDelegate
 extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
+    
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.pinTop(to: view.topAnchor)
@@ -53,10 +80,10 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.pinRight(to: view.trailingAnchor)
         tableView.pinBottom(to: view.bottomAnchor)
         
-        tableView.register(NewsCell.self, forCellReuseIdentifier: "NewsCell")
+        tableView.register(NewsCell.self, forCellReuseIdentifier: Constants.newsCellIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = Constants.tableViewBackgroundColor
         tableView.refreshControl = refreshControl
     }
     
@@ -65,7 +92,7 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.newsCellIdentifier, for: indexPath) as! NewsCell
         let displayArticle = displayArticles[indexPath.row]
         cell.configure(with: displayArticle)
         return cell
@@ -77,12 +104,17 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         router?.routeToArticleDetail(with: article)
     }
     
+    // MARK: Share Action
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let shareAction = UIContextualAction(style: .normal, title: "Share") { [weak self] _, _, completion in
-            guard let self = self, let article = self.interactor?.articles[indexPath.row],
+        let shareAction = UIContextualAction(
+            style: .normal,
+            title: Constants.shareActionTitle
+        ) { [weak self] _, _, completion in
+            guard let self = self,
+                  let article = self.interactor?.articles[indexPath.row],
                   let url = article.articleUrl else {
                 completion(true)
                 return
@@ -91,7 +123,7 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
             self.present(activityVC, animated: true)
             completion(true)
         }
-        shareAction.backgroundColor = .systemBlue
+        shareAction.backgroundColor = Constants.shareActionBackgroundColor
         return UISwipeActionsConfiguration(actions: [shareAction])
     }
 }

@@ -5,12 +5,15 @@
 //  Created by Tom Tim on 17.12.2024.
 //
 
-import Foundation
+// MARK: - NewsInteractor
 final class NewsInteractor: NewsBusinessLogic, NewsDataStore {
+    
+    // MARK: - Properties
     var presenter: NewsPresentationLogic?
     var worker: NewsWorker = NewsWorker()
     var articles: [ArticleModel] = []
     
+    // MARK: - Business Logic
     func loadNews(_ request: News.Load.Request) {
         worker.fetchNews(
             rubric: request.rubricId,

@@ -8,10 +8,14 @@
 import UIKit
 import WebKit
 
+// MARK: - ArticleDetailViewController
 final class ArticleDetailViewController: UIViewController {
+    
+    // MARK: - Properties
     var articleURL: URL?
     private let webView = WKWebView()
-
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -22,7 +26,8 @@ final class ArticleDetailViewController: UIViewController {
             webView.load(request)
         }
     }
-
+    
+    // MARK: - Private Methods
     private func setupWebView() {
         view.addSubview(webView)
         

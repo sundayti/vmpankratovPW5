@@ -7,15 +7,39 @@
 
 import UIKit
 
+// MARK: - NewsCell
 class NewsCell: UITableViewCell {
+    
+    // MARK: - UI Components
     private let articleImageView = UIImageView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let shimmerLayer: ShimmerView = ShimmerView(frame: CGRect(x: 0, y: 0, width: 400, height: 200))
     
+    // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Configuration
+    func configure(with article: DisplayArticle) {
+        configureShimmerView()
+        titleLabel.text = article.title
+        descriptionLabel.text = article.description
+        if let url = article.imageURL {
+            loadImage(from: url)
+        } else {
+            articleImageView.image = nil
+        }
+    }
+    
+    // MARK: - Private Methods
+    private func setupUI() {
         articleImageView.contentMode = .scaleAspectFill
         articleImageView.clipsToBounds = true
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
@@ -33,22 +57,6 @@ class NewsCell: UITableViewCell {
         articleImageView.setHeight(200)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure(with article: DisplayArticle) {
-        configureShimmerView()
-        titleLabel.text = article.title
-        descriptionLabel.text = article.description
-        if let url = article.imageURL {
-            loadImage(from: url)
-        } else {
-            articleImageView.image = nil
-        }
-    }
-    
-    
     private func loadImage(from url: URL) {
         if let cachedImage = ImageCache.shared.getImage(for: url as NSURL) {
             self.shimmerLayer.isHidden = true
@@ -56,8 +64,8 @@ class NewsCell: UITableViewCell {
             return
         }
         DispatchQueue.global().async { [weak self] in
-            guard let data = try? Data(contentsOf: url) else {return}
-            guard let image = UIImage(data: data) else {return}
+            guard let data = try? Data(contentsOf: url) else { return }
+            guard let image = UIImage(data: data) else { return }
             
             ImageCache.shared.saveImage(image, for: url as NSURL)
             
@@ -69,8 +77,8 @@ class NewsCell: UITableViewCell {
     }
     
     private func configureShimmerView() {
-            contentView.addSubview(shimmerLayer)
-            shimmerLayer.layer.cornerRadius = 10
-            shimmerLayer.startAnimating()
-        }
+        contentView.addSubview(shimmerLayer)
+        shimmerLayer.layer.cornerRadius = 10
+        shimmerLayer.startAnimating()
+    }
 }

@@ -6,9 +6,14 @@
 //
 
 import Foundation
+
+// MARK: - NewsPresenter
 final class NewsPresenter: NewsPresentationLogic {
+    
+    // MARK: - Properties
     weak var viewController: NewsDisplayLogic?
     
+    // MARK: - Presentation Logic
     func presentNews(_ response: News.Load.Response) {
         let displayArticles = response.articles.map {
             DisplayArticle(title: $0.title ?? "",
