@@ -13,12 +13,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        let window = UIWindow(windowScene: windowScene)
-        let nav = UINavigationController(rootViewController: ViewController())
-        window.rootViewController = nav
-        self.window = window
-        window.makeKeyAndVisible()
+        guard let windowScene = scene as? UIWindowScene else { return }
+
+               let viewController = NewsViewController()
+               let presenter = NewsPresenter()
+               let interactor = NewsInteractor()
+               let router = NewsRouter()
+
+               viewController.interactor = interactor
+               viewController.router = router
+               interactor.presenter = presenter
+               presenter.viewController = viewController
+               router.viewController = viewController
+               router.dataStore = interactor
+
+               let nav = UINavigationController(rootViewController: viewController)
+               let window = UIWindow(windowScene: windowScene)
+               window.rootViewController = nav
+               self.window = window
+               window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
