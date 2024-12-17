@@ -7,19 +7,27 @@
 
 import UIKit
 
-final class NewsViewController: UIViewController, NewsDisplayLogic {
+final class NewsViewController: UIViewController {
     var interactor: (NewsBusinessLogic & NewsDataStore)?
     var router: (NewsRoutingLogic & NewsDataPassing)?
-
+    
     private let tableView = UITableView()
     private var displayArticles: [DisplayArticle] = []
     private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
-
+    
+    private func configureRefreshControl() {
+        refreshControl.tintColor = .green
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        refreshControl.tintColor = .black
+    }
+    
+    @objc private func handleRefresh() {
+        interactor?.loadNews(News.Load.Request(rubricId: 4, pageIndex: 1))
+    }
 }
 
 extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -33,6 +41,8 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.register(NewsCell.self, forCellReuseIdentifier: "NewsCell")
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = .white
+        tableView.refreshControl = refreshControl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
