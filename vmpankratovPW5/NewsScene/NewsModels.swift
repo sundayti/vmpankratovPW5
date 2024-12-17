@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+
+struct DisplayArticle {
+    let title: String
+    let description: String
+    let imageURL: URL?
+}
