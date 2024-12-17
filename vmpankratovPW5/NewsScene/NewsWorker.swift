@@ -33,4 +33,25 @@ final class NewsWorker {
             }
         }
     }
+    
+    func fetchNews(rubric: Int, pageIndex: Int, completion: @escaping (Result<[ArticleModel], Error>) -> Void) {
+        guard let url = URL(string: "https://news.myseldon.com/api/Section?rubricId=\(rubric)&pageSize=8&pageIndex=\(pageIndex)") else {
+            completion(.failure(NSError(domain: "Invalid URL", code: 0)))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data,
+                  let newsPage = try? self.decoder.decode(NewsPage.self, from: data),
+                  let articles = newsPage.news else {
+                completion(.failure(NSError(domain: "Decoding error", code: 0)))
+                return
+            }
+            completion(.success(articles))
+        }.resume()
+    }
 }
