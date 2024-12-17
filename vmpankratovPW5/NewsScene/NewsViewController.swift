@@ -7,8 +7,14 @@
 
 import UIKit
 
-class NewsViewController: UIViewController {
+final class NewsViewController: UIViewController, NewsDisplayLogic {
+    var interactor: (NewsBusinessLogic & NewsDataStore)?
+    var router: (NewsRoutingLogic & NewsDataPassing)?
 
+    private let tableView = UITableView()
+    private var displayArticles: [DisplayArticle] = []
+    private let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
