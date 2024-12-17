@@ -12,14 +12,17 @@ final class NewsViewController: UIViewController, NewsDisplayLogic {
     
     // MARK: - Nested Types
     private enum Constants {
-        static let initialRubricId = 4
-        static let initialPageIndex = 1
-        static let newsCellIdentifier = "NewsCell"
-        static let shareActionTitle = "Share"
-        static let navigationBarBackgroundColor = UIColor.white
-        static let refreshControlTintColor = UIColor.black
-        static let tableViewBackgroundColor = UIColor.white
-        static let shareActionBackgroundColor = UIColor.systemBlue
+        static let initialRubricId: Int = 4
+        static let initialPageIndex: Int = 1
+        static let newsCellIdentifier: String = "NewsCell"
+        static let shareActionTitle: String = "Share"
+        static let navigationBarBackgroundColor: UIColor = .white
+        static let refreshControlTintColor: UIColor = .black
+        static let tableViewBackgroundColor: UIColor = .white
+        static let viewBackgroundColor: UIColor = .white
+        static let shareActionBackgroundColor:UIColor = .systemBlue
+        static let viewNextTitle: String = "Next"
+        static let viewPreviousTitle: String = "Prev"
     }
     
     // MARK: - Properties
@@ -37,24 +40,7 @@ final class NewsViewController: UIViewController, NewsDisplayLogic {
         configureRefreshControl()
         configureTableView()
         configureNavigationBar()
-        
-        interactor?.loadNews(News.Load.Request(
-            rubricId: Constants.initialRubricId,
-            pageIndex: Constants.initialPageIndex
-        ))
-    }
-    
-    // MARK: - Private Methods
-    private func configureNavigationBar() {
-        navigationController?.navigationBar.backgroundColor = Constants.navigationBarBackgroundColor
-    }
-    
-    private func configureRefreshControl() {
-        refreshControl.tintColor = Constants.refreshControlTintColor
-        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-    }
-    
-    @objc private func handleRefresh() {
+        view.backgroundColor = Constants.viewBackgroundColor
         interactor?.loadNews(News.Load.Request(
             rubricId: Constants.initialRubricId,
             pageIndex: Constants.initialPageIndex
@@ -67,6 +53,52 @@ final class NewsViewController: UIViewController, NewsDisplayLogic {
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
         }
+    }
+    
+    // MARK: - Private Methods
+    private func configureNavigationBar() {
+        let nextPageButton = UIBarButtonItem(title: Constants.viewNextTitle, style: .plain, target: self, action: #selector(loadNextPage))
+        let prevPageButton = UIBarButtonItem(title: Constants.viewPreviousTitle, style: .plain, target: self, action: #selector(loadPrevPage))
+        navigationItem.rightBarButtonItems = [nextPageButton, prevPageButton]
+        navigationController?.navigationBar.backgroundColor = Constants.navigationBarBackgroundColor
+    }
+    
+    private func configureRefreshControl() {
+        refreshControl.tintColor = Constants.refreshControlTintColor
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+    }
+    
+    @objc private func handleRefresh() {
+        guard let interactor = interactor else { return }
+        let currentPage = interactor.currentPageIndex
+        interactor.loadNews(News.Load.Request(
+            rubricId: Constants.initialRubricId,
+            pageIndex: currentPage
+        ))
+    }
+    
+    @objc private func loadNextPage() {
+        guard let interactor = interactor else { return }
+        let nextPage = interactor.currentPageIndex + 1
+        interactor
+            .loadNews(
+                News.Load.Request(
+                    rubricId: Constants.initialRubricId,
+                    pageIndex: nextPage
+                )
+            )
+    }
+    
+    @objc private func loadPrevPage() {
+        guard let interactor = interactor else { return }
+        let prevPage = max(1, interactor.currentPageIndex - 1)
+        interactor
+            .loadNews(
+                News.Load.Request(
+                    rubricId: Constants.initialRubricId,
+                    pageIndex: prevPage
+                )
+            )
     }
 }
 
