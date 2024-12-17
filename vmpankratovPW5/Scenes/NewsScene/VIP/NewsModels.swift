@@ -40,6 +40,9 @@ struct DisplayArticle {
 
 // MARK: - ArticleModel
 struct ArticleModel: Decodable {
+    enum Constants {
+        static let baseURL: String = "https://news.myseldon.com/ru/news"
+    }
     
     // MARK: - Properties
     var newsId: Int?
@@ -52,7 +55,7 @@ struct ArticleModel: Decodable {
     var articleUrl: URL? {
         let requestId = requestId ?? ""
         let newsId = newsId ?? 0
-        return URL(string: "https://news.myseldon.com/ru/news/index/\(newsId)?requestId=\(requestId)")
+        return URL(string: "\(Constants.baseURL)/index/\(newsId)?requestId=\(requestId)")
     }
 }
 

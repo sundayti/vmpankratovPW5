@@ -10,10 +10,14 @@ import Foundation
 // MARK: - NewsWorker
 final class NewsWorker {
     
-    // MARK: - Properties
-    private let decoder: JSONDecoder = JSONDecoder()
-    
     // MARK: - Nested Types
+    private enum Constants {
+        static let baseURL = "https://news.myseldon.com/api/Section"
+        static let pageSize = 8
+        static let invalidURLMessage = "Invalid URL"
+        static let decodingErrorMessage = "Decoding error"
+    }
+    
     struct NewsPage: Decodable {
         
         // MARK: - CodingKeys
@@ -42,10 +46,13 @@ final class NewsWorker {
         }
     }
     
+    // MARK: - Properties
+    private let decoder: JSONDecoder = JSONDecoder()
+    
     // MARK: - Public Methods
     func fetchNews(rubric: Int, pageIndex: Int, completion: @escaping (Result<[ArticleModel], Error>) -> Void) {
-        guard let url = URL(string: "https://news.myseldon.com/api/Section?rubricId=\(rubric)&pageSize=8&pageIndex=\(pageIndex)") else {
-            completion(.failure(NSError(domain: "Invalid URL", code: 0)))
+        guard let url = URL(string: "\(Constants.baseURL)?rubricId=\(rubric)&pageSize=\(Constants.pageSize)&pageIndex=\(pageIndex)") else {
+            completion(.failure(NSError(domain: Constants.invalidURLMessage, code: 0)))
             return
         }
         
@@ -57,7 +64,7 @@ final class NewsWorker {
             guard let data = data,
                   let newsPage = try? self.decoder.decode(NewsPage.self, from: data),
                   let articles = newsPage.news else {
-                completion(.failure(NSError(domain: "Decoding error", code: 0)))
+                completion(.failure(NSError(domain: Constants.decodingErrorMessage, code: 0)))
                 return
             }
             completion(.success(articles))

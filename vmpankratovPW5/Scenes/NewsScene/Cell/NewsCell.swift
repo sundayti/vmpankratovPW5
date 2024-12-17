@@ -10,6 +10,17 @@ import UIKit
 // MARK: - NewsCell
 class NewsCell: UITableViewCell {
     
+    // MARK: - Constants
+    private enum Constants {
+        static let titleFontSize: CGFloat = 16
+        static let descriptionFontSize: CGFloat = 14
+        static let descriptionNumberOfLines = 3
+        static let imageHeight: CGFloat = 200
+        static let stackSpacing: CGFloat = 8
+        static let stackPadding: CGFloat = 8
+        static let shimmerCornerRadius: CGFloat = 10
+    }
+    
     // MARK: - UI Components
     private let articleImageView = UIImageView()
     private let titleLabel = UILabel()
@@ -42,19 +53,22 @@ class NewsCell: UITableViewCell {
     private func setupUI() {
         articleImageView.contentMode = .scaleAspectFill
         articleImageView.clipsToBounds = true
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        descriptionLabel.font = UIFont.systemFont(ofSize: 14)
-        descriptionLabel.numberOfLines = 3
+        
+        titleLabel.font = UIFont.boldSystemFont(ofSize: Constants.titleFontSize)
+        descriptionLabel.font = UIFont.systemFont(ofSize: Constants.descriptionFontSize)
+        descriptionLabel.numberOfLines = Constants.descriptionNumberOfLines
         
         let stack = UIStackView(arrangedSubviews: [articleImageView, titleLabel, descriptionLabel])
         stack.axis = .vertical
-        stack.spacing = 8
+        stack.spacing = Constants.stackSpacing
         contentView.addSubview(stack)
-        stack.pinTop(to: contentView.topAnchor, 8)
-        stack.pinBottom(to: contentView.bottomAnchor, 8)
-        stack.pinLeft(to: contentView.leadingAnchor, 8)
-        stack.pinRight(to: contentView.trailingAnchor, 8)
-        articleImageView.setHeight(200)
+        
+        stack.pinTop(to: contentView.topAnchor, Constants.stackPadding)
+        stack.pinBottom(to: contentView.bottomAnchor, Constants.stackPadding)
+        stack.pinLeft(to: contentView.leadingAnchor, Constants.stackPadding)
+        stack.pinRight(to: contentView.trailingAnchor, Constants.stackPadding)
+        
+        articleImageView.setHeight(Constants.imageHeight)
     }
     
     private func loadImage(from url: URL) {
@@ -78,7 +92,7 @@ class NewsCell: UITableViewCell {
     
     private func configureShimmerView() {
         contentView.addSubview(shimmerLayer)
-        shimmerLayer.layer.cornerRadius = 10
+        shimmerLayer.layer.cornerRadius = Constants.shimmerCornerRadius
         shimmerLayer.startAnimating()
     }
 }
