@@ -12,12 +12,14 @@ final class NewsInteractor: NewsBusinessLogic, NewsDataStore {
     var presenter: NewsPresentationLogic?
     var worker: NewsWorker = NewsWorker()
     var articles: [ArticleModel] = []
+    var currentPageIndex: Int = 0
     
     // MARK: - Business Logic
     func loadNews(_ request: News.Load.Request) {
+        currentPageIndex = request.pageIndex
         worker.fetchNews(
             rubric: request.rubricId,
-            pageIndex: request.pageIndex
+            pageIndex: currentPageIndex
         ) { [weak self] result in
             switch result {
             case .success(let fetchedArticles):

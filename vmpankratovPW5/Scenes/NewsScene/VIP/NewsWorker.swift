@@ -12,10 +12,10 @@ final class NewsWorker {
     
     // MARK: - Nested Types
     private enum Constants {
-        static let baseURL = "https://news.myseldon.com/api/Section"
-        static let pageSize = 8
-        static let invalidURLMessage = "Invalid URL"
-        static let decodingErrorMessage = "Decoding error"
+        static let baseURL: String = "https://news.myseldon.com/api/Section"
+        static let pageSize: Int = 8
+        static let invalidURLMessage: String = "Invalid URL"
+        static let decodingErrorMessage: String = "Decoding error"
     }
     
     struct NewsPage: Decodable {

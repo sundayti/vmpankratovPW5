@@ -13,6 +13,7 @@ protocol NewsBusinessLogic {
 
 protocol NewsDataStore {
     var articles: [ArticleModel] { get set }
+    var currentPageIndex: Int { get set }
 }
 
 protocol NewsPresentationLogic {
