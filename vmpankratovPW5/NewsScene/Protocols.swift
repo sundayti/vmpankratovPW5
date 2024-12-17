@@ -22,3 +22,11 @@ protocol NewsPresentationLogic {
 protocol NewsDisplayLogic: AnyObject {
     func displayNews(_ viewModel: News.Load.ViewModel)
 }
+
+protocol NewsRoutingLogic {
+    func routeToArticleDetail(with article: ArticleModel)
+}
+
+protocol NewsDataPassing {
+    var dataStore: NewsDataStore? { get }
+}
