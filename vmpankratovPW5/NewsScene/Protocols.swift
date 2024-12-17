@@ -18,3 +18,7 @@ protocol NewsDataStore {
 protocol NewsPresentationLogic {
     func presentNews(_ response: News.Load.Response)
 }
+
+protocol NewsDisplayLogic: AnyObject {
+    func displayNews(_ viewModel: News.Load.ViewModel)
+}
