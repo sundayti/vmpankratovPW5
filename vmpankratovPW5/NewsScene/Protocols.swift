@@ -14,3 +14,7 @@ protocol NewsBusinessLogic {
 protocol NewsDataStore {
     var articles: [ArticleModel] { get set }
 }
+
+protocol NewsPresentationLogic {
+    func presentNews(_ response: News.Load.Response)
+}
