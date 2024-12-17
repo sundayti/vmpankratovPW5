@@ -7,6 +7,20 @@
 
 import Foundation
 
+enum News {
+    enum Load {
+        struct Request {
+            let rubricId: Int
+            let pageIndex: Int
+        }
+        struct Response {
+            let articles: [ArticleModel]
+        }
+        struct ViewModel {
+            let displayArticles: [DisplayArticle]
+        }
+    }
+}
 
 struct DisplayArticle {
     let title: String
