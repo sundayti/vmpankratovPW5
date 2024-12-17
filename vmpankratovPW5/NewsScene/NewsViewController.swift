@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class NewsViewController: UIViewController {
+final class NewsViewController: UIViewController, NewsDisplayLogic {
     var interactor: (NewsBusinessLogic & NewsDataStore)?
     var router: (NewsRoutingLogic & NewsDataPassing)?
     
@@ -17,6 +17,12 @@ final class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureRefreshControl()
+        configureTableView()
+        
+        navigationController?.navigationBar.backgroundColor = .white
+        interactor?.loadNews(News.Load.Request(rubricId: 4, pageIndex: 1))
     }
     
     private func configureRefreshControl() {
@@ -24,6 +30,15 @@ final class NewsViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         refreshControl.tintColor = .black
     }
+    
+    func displayNews(_ viewModel: News.Load.ViewModel) {
+        displayArticles = viewModel.displayArticles
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
     
     @objc private func handleRefresh() {
         interactor?.loadNews(News.Load.Request(rubricId: 4, pageIndex: 1))
