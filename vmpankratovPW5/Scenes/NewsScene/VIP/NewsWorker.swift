@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - NewsWorker
-final class NewsWorker {
+class NewsWorker {
     
     // MARK: - Nested Types
     private enum Constants {
