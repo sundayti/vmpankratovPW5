@@ -6,7 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		F36DF4882D1247110064D42F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3E51AAB2D115BF90089AAE9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F3E51AB22D115BF90089AAE9;
+			remoteInfo = vmpankratovPW5;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		F36DF4842D1247110064D42F /* vmpankratovPW5Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vmpankratovPW5Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3E51AB32D115BF90089AAE9 /* vmpankratovPW5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vmpankratovPW5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -21,6 +32,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		F36DF4852D1247110064D42F /* vmpankratovPW5Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = vmpankratovPW5Tests;
+			sourceTree = "<group>";
+		};
 		F3E51AB52D115BF90089AAE9 /* vmpankratovPW5 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -32,6 +48,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F36DF4812D1247110064D42F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F3E51AB02D115BF90089AAE9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -46,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				F3E51AB52D115BF90089AAE9 /* vmpankratovPW5 */,
+				F36DF4852D1247110064D42F /* vmpankratovPW5Tests */,
 				F3E51AB42D115BF90089AAE9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				F3E51AB32D115BF90089AAE9 /* vmpankratovPW5.app */,
+				F36DF4842D1247110064D42F /* vmpankratovPW5Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +86,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F36DF4832D1247110064D42F /* vmpankratovPW5Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F36DF48C2D1247110064D42F /* Build configuration list for PBXNativeTarget "vmpankratovPW5Tests" */;
+			buildPhases = (
+				F36DF4802D1247110064D42F /* Sources */,
+				F36DF4812D1247110064D42F /* Frameworks */,
+				F36DF4822D1247110064D42F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F36DF4892D1247110064D42F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F36DF4852D1247110064D42F /* vmpankratovPW5Tests */,
+			);
+			name = vmpankratovPW5Tests;
+			packageProductDependencies = (
+			);
+			productName = vmpankratovPW5Tests;
+			productReference = F36DF4842D1247110064D42F /* vmpankratovPW5Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F3E51AB22D115BF90089AAE9 /* vmpankratovPW5 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F3E51AC62D115BFB0089AAE9 /* Build configuration list for PBXNativeTarget "vmpankratovPW5" */;
@@ -93,6 +141,10 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					F36DF4832D1247110064D42F = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = F3E51AB22D115BF90089AAE9;
+					};
 					F3E51AB22D115BF90089AAE9 = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -113,11 +165,19 @@
 			projectRoot = "";
 			targets = (
 				F3E51AB22D115BF90089AAE9 /* vmpankratovPW5 */,
+				F36DF4832D1247110064D42F /* vmpankratovPW5Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F36DF4822D1247110064D42F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F3E51AB12D115BF90089AAE9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +188,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F36DF4802D1247110064D42F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F3E51AAF2D115BF90089AAE9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,7 +204,51 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		F36DF4892D1247110064D42F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F3E51AB22D115BF90089AAE9 /* vmpankratovPW5 */;
+			targetProxy = F36DF4882D1247110064D42F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		F36DF48A2D1247110064D42F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZTRN9429Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = sundayti.vmpankratovPW5Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vmpankratovPW5.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/vmpankratovPW5";
+			};
+			name = Debug;
+		};
+		F36DF48B2D1247110064D42F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KZTRN9429Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = sundayti.vmpankratovPW5Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vmpankratovPW5.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/vmpankratovPW5";
+			};
+			name = Release;
+		};
 		F3E51AC72D115BFB0089AAE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -314,6 +425,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F36DF48C2D1247110064D42F /* Build configuration list for PBXNativeTarget "vmpankratovPW5Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F36DF48A2D1247110064D42F /* Debug */,
+				F36DF48B2D1247110064D42F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F3E51AAE2D115BF90089AAE9 /* Build configuration list for PBXProject "vmpankratovPW5" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
